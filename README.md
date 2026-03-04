@@ -1,35 +1,65 @@
 # IFT458 Middleware 2026 - Book Exchange Platform
 
-A React Native + Express.js mobile application for the IFT-458 Middleware Programming course. Students can register, login, and exchange books through a mobile app that connect to a RESTful API backend.
+React Native + Express.js mobile application for the IFT-458 Middleware Programming course. Students can register, login, and exchange books through a mobile app that connect to a RESTful API backend.
+
+## How to Run the Project
+
+You need to open two separate VS Code windows. One for the backend server and one for the mobile app. They run at the same time in different terminals.
+
+### Step 1: Open Backend in VS Code
+
+Open VS Code and go to File > Open Folder. Navigate to the `backend` folder and open it. This is your first VS Code window for the server.
+
+Open a Terminal inside VS Code by going to Terminal > New Terminal (or press Ctrl + ` on your keyboard).
+
+Install the dependencies first:
+
+```
+npm install
+```
+
+Then start the backend server by typing:
+
+```
+node server.js
+```
+
+You should see "App running on port 4000..." and "DB connection successful!" in the terminal. Keep this terminal open and running.
+
+### Step 2: Open Mobile App in a Second VS Code Window
+
+Open a brand new VS Code window by going to File > New Window. Then go to File > Open Folder and navigate to the `mobile` folder and open it. This is your second VS Code window for the mobile app.
+
+Open a Terminal inside this VS Code window the same way (Terminal > New Terminal).
+
+Install the mobile dependencies:
+
+```
+npm install
+```
+
+Then start the Expo development server:
+
+```
+npx expo start
+```
+
+You should see a QR code in the terminal. Press **W** on your keyboard to open the app in your web browser.
+
+### Step 3: Test the App
+
+Once both the backend and mobile are running, you can register a new user, login, and use the book exchange features. Visit http://localhost:4000 in your browser for the full interactive setup guide with more details.
 
 ## Project Structure
 
 - **backend/** - Express.js API server with MongoDB, JWT authentication, and book CRUD operations
 - **mobile/** - React Native Expo app with screens for login, register, book exchange, and more
 
-## Quick Start
-
-### Backend
-```bash
-cd backend
-npm install
-npm start
-```
-Server run at http://localhost:4000
-
-### Mobile App
-```bash
-cd mobile
-npm install
-npx expo start
-```
-Press `w` for web browser, scan QR code for phone (Expo Go), or press `a`/`i` for emulator.
-
 ## Tech Stack
 
-- **Backend:** Node.js, Express.js, MongoDB, Mongoose, JWT, bcryptjs, CORS
-- **Mobile:** React Native, Expo SDK 50, AsyncStorage
-- **Auth:** JSON Web Tokens (Bearer header for mobile, cookies for web)
+- Backend: Node.js, Express.js, MongoDB, Mongoose, JWT, bcryptjs, CORS
+- Mobile: React Native, Expo SDK 50, AsyncStorage
+- Auth: JSON Web Tokens (Bearer header for mobile, cookies for web)
 
 ## API Endpoints
 
@@ -42,6 +72,6 @@ Press `w` for web browser, scan QR code for phone (Expo Go), or press `a`/`i` fo
 | PUT | /api/v1/books/:id | Update book (auth) |
 | DELETE | /api/v1/books/:id | Delete book (auth) |
 
-## Setup Guide
+## Full Setup Guide
 
-Start the backend server and visit http://localhost:4000 for the full interactive setup guide with step-by-step instructions.
+Start the backend server and visit http://localhost:4000 for the full interactive setup guide with step-by-step instructions, device options, testing guide, API reference, troubleshooting, and Git workflow.
