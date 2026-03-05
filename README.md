@@ -12,7 +12,9 @@ Open VS Code and go to File > Open Folder. Navigate to the `backend` folder and 
 
 Open a Terminal inside VS Code by going to Terminal > New Terminal (or press Ctrl + ` on your keyboard).
 
-Install the dependencies first:
+## IMPORTANT ##
+Since Git will not push the .env or any file name that starts with "." for security. Such as your applications keys. You will need to copy over your last "config.env" file to the back end project.
+Then Install the dependencies first:
 
 ```
 npm install
