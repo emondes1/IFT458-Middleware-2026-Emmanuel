@@ -61,5 +61,13 @@
     "active": true,
     "password": "password12345",
     "passwordConfirm": "password12345"
+  },
+  {
+    "name": "Danie Paz",
+    "email": "dpazcarr@example.com",
+    "role": "user",
+    "active": true,
+    "password": "password12345",
+    "passwordConfirm": "password12345"
   }
 ]
