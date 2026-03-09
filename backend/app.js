@@ -4,8 +4,12 @@
 // NOTE: This backend is API-only (no views)
 // React Native mobile app connects to these API endpoints
 // # Repository Update
+<<<<<<< HEAD
+// Edited by Justin Im for assignment. 
+=======
 // Edited by Justin Im for assignment.
 require("node:dns/promises").setServers(["1.1.1.1", "8.8.8.8"]);
+>>>>>>> b12873ffc65270aa915ab9b2c19884e82ea0c489
 
 
 const path = require('path');
@@ -18,7 +22,8 @@ const cors = require('cors'); // allows React Native to connect to this server
 // start express app
 const app = express();
 
-// 1) GLOBAL MIDDLEWARES
+
+
 
 // Enable CORS so React Native app can make requests to this server
 // Without CORS the mobile app would get blocked by the browser security
