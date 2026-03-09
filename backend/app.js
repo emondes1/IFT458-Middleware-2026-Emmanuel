@@ -5,6 +5,7 @@
 // React Native mobile app connects to these API endpoints
 // # Repository Update
 // Edited by Justin Im for assignment.
+require("node:dns/promises").setServers(["1.1.1.1", "8.8.8.8"]);
 
 
 const path = require('path');

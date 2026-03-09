@@ -1,3 +1,5 @@
+require("node:dns/promises").setServers(["1.1.1.1", "8.8.8.8"]);
+
 // server.js
 // This is the entry point of the application
 // It connects to MongoDB database and starts the Express server
