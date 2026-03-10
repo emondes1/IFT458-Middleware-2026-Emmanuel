@@ -1,5 +1,5 @@
-# Server Notes - [Student Name]
-Date: [Date]
+# Server Notes - [Sean Kimminau]
+Date: [03/10/2026]
 
 ## What I Learned
 - The backend use Express.js with MongoDB
