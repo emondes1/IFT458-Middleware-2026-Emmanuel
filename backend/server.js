@@ -1,3 +1,12 @@
+// DNS FIX (MUST BE FIRST)
+const dns = require('dns');
+
+dns.setServers([
+  '8.8.8.8',   // Google DNS
+  '8.8.4.4',   // Backup
+  '1.1.1.1'    // Cloudflare
+]);
+
 // server.js
 // This is the entry point of the application
 // It connects to MongoDB database and starts the Express server
