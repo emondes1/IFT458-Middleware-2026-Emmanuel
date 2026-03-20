@@ -57,3 +57,15 @@ Date: 03/18/2026
 ## Notes
 
 For this activity, I explored how the backend is set up and how it connects to MongoDB using environment variables. I updated the `config.env` file and made sure the server could run properly on port 4000. I then started the backend using `node server.js` and confirmed that the database connection was successful. I also learned how the backend provides API endpoints that allow the mobile app to send and receive data. This activity helped me better understand how the backend and mobile application work together, especially when using JWT for authentication.
+
+# Server Notes - Kandle Mcgee
+Date: 03/19/2026
+
+## What I Learned
+- The backend use Express.js with MongoDB
+- JWT tokens are used for authentication
+- The API run on port 4000
+- CORS is needed so the mobile app can connect
+
+## Notes
+For Module 5: Cloning Repository, I started the frontend React mobile application with npx expo start. The mobile app works with the backend node.js server that runs on port 4000. The backend uses the environment variables in the config.env file to successfully connect to the MongoDB. This Book Exchange backend application uses JWT tokens to authenticate and authorize the user that signs up to access book resources through REST API routes. This project introduced me to Github repository and developing a React mobile application with Node.js and Express.js.
