@@ -1,4 +1,5 @@
 // app.js
+const loggerMiddleware = require('./loggerMiddleware');
 // This is the main Express application file
 // It configures all the middleware and API routes
 // NOTE: This backend is API-only (no views)
@@ -13,7 +14,7 @@ const cors = require('cors'); // allows React Native to connect to this server
 
 // start express app
 const app = express();
-
+app.use(loggerMiddleware);
 // 1) GLOBAL MIDDLEWARES
 
 // Enable CORS so React Native app can make requests to this server
