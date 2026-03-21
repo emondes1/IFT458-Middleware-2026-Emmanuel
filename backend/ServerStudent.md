@@ -1,4 +1,5 @@
-## test for git
-- testing
+# Server Setup Notes
 
-I am learning a lot about cloning and git
+- Backend server started using node server.js
+- Verified connection at http://localhost:4000
+- Used config.env for environment variables
