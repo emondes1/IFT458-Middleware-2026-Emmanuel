@@ -88,3 +88,16 @@ For this lab, I set up and ran the backend server for the Book Exchange Platform
 Next, I started the server using:node server.js
 
 Once the server was running, I opened `http://localhost:4000` in my browser to verify that the backend was working correctly. This activity helped me understand how the backend connects to MongoDB, how environment variables are used, and how the server provides API endpoints for the mobile application. I also learned how important it is to properly install dependencies and troubleshoot errors during setup.
+
+
+# ServerStudent Notes
+
+## Student Information
+Name: Tyler Simunovich
+Date: 03/22/2026
+
+## What I Learned
+- Learned how to start a backend server and verify it's running correctly.
+- Learned how to launch a mobile app with Expo
+- Understanding of how the frontend connects with the backend
+- Practiced basic Git workflows
