@@ -93,3 +93,24 @@ Once both the backend and mobile are running, you can register a new user, login
 ## Full Setup Guide
 
 Start the backend server and visit http://localhost:4000 for the full interactive setup guide with step-by-step instructions, device options, testing guide, API reference, troubleshooting, and Git workflow.
+
+# Update: Edited by Jared Esquibel for Git assignment
+
+## Assignment Test Edit
+This line was added to demonstrate editing a file in VS Code.
+
+Edited again on March 21, 2026.
+This is another test edit.
+
+# Update: Edited by VarmaTamada for Git assignment
+
+
+<!-- Test edit for Step 3 -->
+
+## Update: Blake Duprey
+
+## Module 5 Activity 1 Step 3 Test Hamed Solaiman
+
+# Module 5 Activity 1 - Brad Exner
+
+Making a change to a file in VS after cloning the repository in step 2.

@@ -1,3 +1,12 @@
+// DNS FIX (MUST BE FIRST)
+const dns = require('dns');
+
+dns.setServers([
+  '8.8.8.8',   // Google DNS
+  '8.8.4.4',   // Backup
+  '1.1.1.1'    // Cloudflare
+]);
+
 // server.js
 // This is the entry point of the application
 // It connects to MongoDB database and starts the Express server
@@ -16,8 +25,8 @@ const app = require('./app');
 // Connect to the database and replace the password placeholder
 // with the actual password from the environment variable
 const DB = process.env.DATABASE.replace(
-  '<password>',
-  process.env.DATABASE_PASSWORD
+  '<db_password>',
+  process.env.DB_PASSWORD
 );
 
 // Connect to MongoDB using mongoose

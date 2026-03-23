@@ -19,13 +19,11 @@ import { Platform } from 'react-native';
 // ============================================================
 // CHANGE THIS TO YOUR COMPUTER'S IP ADDRESS (for phone testing)
 // ============================================================
-const PHONE_API_BASE = 'http://YOUR_IP_ADDRESS_HERE:4000/api/v1';
+const PHONE_API_BASE = 'http://192.168.254.100:4000/api/v1';
 
 // If running in web browser, use localhost automatically
 // If running on phone, use the IP address above
-const API_BASE = Platform.OS === 'web'
-    ? 'http://localhost:4000/api/v1'
-    : PHONE_API_BASE;
+const API_BASE = 'http://192.168.254.100:4000/api/v1';
 // ============================================================
 
 // Import our cross-platform storage helper

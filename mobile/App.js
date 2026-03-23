@@ -1,4 +1,4 @@
-// App.js - Main entry point of the React Native mobile app
+// I changed this comment
 // Manages screen navigation and user authentication state
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, StatusBar, Platform } from 'react-native';
@@ -14,6 +14,10 @@ import LogoutScreen from './screens/LogoutScreen';
 
 // Import API helper
 import { getSavedUser } from './utils/api';
+
+
+
+const loggermiddleware = require('./loggerMiddleware'); //Bryce Pratt
 
 // Fix the web viewport so the app uses the full browser width
 // Expo web by default constrains the app to a narrow mobile width
