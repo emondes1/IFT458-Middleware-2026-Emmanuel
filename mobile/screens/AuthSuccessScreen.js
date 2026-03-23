@@ -6,7 +6,7 @@
 // In a real production app you would NOT show the JWT token to users
 // We show it here for learning purposes so students can see how JWT works
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     View,
     Text,
@@ -15,7 +15,17 @@ import {
     ScrollView,
 } from 'react-native';
 
-const AuthSuccessScreen = ({ user, token, navigation }) => {
+const AuthSuccessScreen = ({ route, navigation }) => {
+    const { user, token } = route.params;
+    const { login } = route.params;
+
+    useEffect(() => {
+        if (login && user && token) {
+            login(user, token);
+            navigation.navigate('Home');
+        }
+    }, [login, user, token, navigation]);
+
     return (
         <ScrollView style={styles.container}>
             {/* Success header with green background */}
@@ -44,14 +54,14 @@ const AuthSuccessScreen = ({ user, token, navigation }) => {
             <View style={styles.buttonGroup}>
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => navigation('home')}
+                    onPress={() => navigation.navigate('Home')}
                 >
                     <Text style={styles.buttonText}>Go to Home</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     style={[styles.button, styles.buttonInfo]}
-                    onPress={() => navigation('bookExchange')}
+                    onPress={() => navigation.navigate('Books')}
                 >
                     <Text style={styles.buttonText}>Go to Book Exchange</Text>
                 </TouchableOpacity>

@@ -169,7 +169,7 @@ const AddBookScreen = ({ navigation }) => {
                 </TouchableOpacity>
 
                 {/* Back to book exchange */}
-                <TouchableOpacity onPress={() => navigation('bookExchange')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Books')}>
                     <Text style={[styles.link, { textAlign: 'center', marginTop: 15 }]}>
                         Back to Book Exchange
                     </Text>

@@ -20,7 +20,7 @@ import {
 // Import the signup function from our API helper file
 import { signupUser } from '../utils/api';
 
-const RegisterScreen = ({ navigation, onLoginSuccess }) => {
+const RegisterScreen = ({ navigation }) => {
     // State variables for each form field
     // Each field needs its own state variable to track what the user types
     const [name, setName] = useState('');
@@ -55,8 +55,8 @@ const RegisterScreen = ({ navigation, onLoginSuccess }) => {
         setLoading(false);
 
         if (data.status === 'success') {
-            // Tell App.js that signup was successful
-            onLoginSuccess(data.data.user, data.token);
+            // Navigate to AuthSuccess with user and token
+            navigation.navigate('AuthSuccess', { user: data.data.user, token: data.token });
         } else {
             setError(data.errorMessage || 'Signup failed. Please try again.');
         }

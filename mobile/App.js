@@ -1,4 +1,6 @@
-// I changed this comment
+// I changed this comment: I dont know what to change for this file so I am gonna add my name to the comment. My name is Susan Arraez :)
+
+
 // Manages screen navigation and user authentication state
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, StatusBar, Platform } from 'react-native';
@@ -18,6 +20,9 @@ import { getSavedUser } from './utils/api';
 
 
 const loggermiddleware = require('./loggerMiddleware'); //Bryce Pratt
+
+// Import AuthContext
+import { AuthProvider, useAuth } from './AuthContext';
 
 // Fix the web viewport so the app uses the full browser width
 // Expo web by default constrains the app to a narrow mobile width
@@ -40,139 +45,138 @@ if (Platform.OS === 'web') {
     document.head.appendChild(style);
 }
 
-export default function App() {
-    // State: which screen to show
-    const [currentScreen, setCurrentScreen] = useState('home');
-    // State: logged in user (null if not logged in)
-    const [user, setUser] = useState(null);
-    // State: JWT token
-    const [token, setToken] = useState(null);
+const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
+// Memoized screens for optimization
+const MemoizedHomeScreen = React.memo(HomeScreen);
+const MemoizedLoginScreen = React.memo(LoginScreen);
+const MemoizedRegisterScreen = React.memo(RegisterScreen);
+const MemoizedAuthSuccessScreen = React.memo(AuthSuccessScreen);
+const MemoizedBookExchangeScreen = React.memo(BookExchangeScreen);
+const MemoizedAddBookScreen = React.memo(AddBookScreen);
+const MemoizedLogoutScreen = React.memo(LogoutScreen);
+
+// Auth Stack Navigator
+function AuthStack() {
+    const { login } = useAuth();
+    return (
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Home" component={MemoizedHomeScreen} />
+            <Stack.Screen name="Login" component={MemoizedLoginScreen} />
+            <Stack.Screen name="Register" component={MemoizedRegisterScreen} />
+            <Stack.Screen
+                name="AuthSuccess"
+                component={MemoizedAuthSuccessScreen}
+                initialParams={{ login }}
+            />
+        </Stack.Navigator>
+    );
+}
+
+// Main Tab Navigator
+function MainTabs({ user, token, onLogout }) {
+    return (
+        <Tab.Navigator
+            screenOptions={({ route }) => ({
+                tabBarIcon: ({ focused, color, size }) => {
+                    // You can add icons here if desired
+                    return null;
+                },
+                tabBarActiveTintColor: '#ffffff',
+                tabBarInactiveTintColor: '#adb5bd',
+                tabBarStyle: styles.bottomNav,
+                tabBarButton: (props) => (
+                    <TouchableOpacity
+                        {...props}
+                        accessibilityLabel={`Navigate to ${route.name}`}
+                        accessibilityRole="button"
+                    />
+                ),
+            })}
+        >
+            <Tab.Screen
+                name="Home"
+                component={MemoizedHomeScreen}
+                options={{ title: 'Home' }}
+            />
+            <Tab.Screen
+                name="Books"
+                component={MemoizedBookExchangeScreen}
+                options={{ title: 'Books' }}
+            />
+            <Tab.Screen
+                name="AddBook"
+                component={MemoizedAddBookScreen}
+                options={{ title: 'Add Book' }}
+            />
+            <Tab.Screen
+                name="Logout"
+                component={MemoizedLogoutScreen}
+                options={{ title: 'Logout' }}
+            />
+        </Tab.Navigator>
+    );
+}
+
+const AppNavigator = () => {
+    const { user, token, login, logout, isLoading, error, setLoading, setAuthError } = useAuth();
 
     // Check for saved session on startup
     useEffect(() => {
         const checkSavedUser = async () => {
             try {
+                loggermiddleware('Checking saved user');
                 const savedData = await getSavedUser();
                 if (savedData) {
-                    setUser(savedData.user);
-                    setToken(savedData.token);
+                    login(savedData.user, savedData.token);
                 }
             } catch (error) {
-                console.log('Could not load saved session:', error);
+                loggermiddleware('Error checking saved user:', error);
+                setAuthError('Failed to load saved session');
+            } finally {
+                setLoading(false);
             }
         };
         checkSavedUser();
-    }, []);
+    }, [login, setLoading, setAuthError]);
 
-    // Navigation function - passed to all screens
-    const handleNavigation = (screen) => {
-        setCurrentScreen(screen);
-    };
+    if (isLoading) {
+        return (
+            <View style={styles.loadingContainer}>
+                <ActivityIndicator size="large" color="#0d6efd" />
+                <Text>Loading...</Text>
+            </View>
+        );
+    }
 
-    // Login/Signup success handler
-    const handleLoginSuccess = (userData, tokenData) => {
-        setUser(userData);
-        setToken(tokenData);
-        setCurrentScreen('authSuccess');
-    };
-
-    // Logout handler
-    const handleLogout = () => {
-        setUser(null);
-        setToken(null);
-        setCurrentScreen('home');
-    };
-
-    // Render the correct screen based on currentScreen state
-    const renderScreen = () => {
-        switch (currentScreen) {
-            case 'login':
-                return <LoginScreen navigation={handleNavigation} onLoginSuccess={handleLoginSuccess} />;
-            case 'register':
-                return <RegisterScreen navigation={handleNavigation} onLoginSuccess={handleLoginSuccess} />;
-            case 'authSuccess':
-                return <AuthSuccessScreen user={user} token={token} navigation={handleNavigation} />;
-            case 'bookExchange':
-                return <BookExchangeScreen user={user} navigation={handleNavigation} />;
-            case 'addBook':
-                return <AddBookScreen navigation={handleNavigation} />;
-            case 'logout':
-                return <LogoutScreen navigation={handleNavigation} onLogout={handleLogout} />;
-            case 'home':
-            default:
-                return <HomeScreen navigation={handleNavigation} />;
-        }
-    };
+    if (error) {
+        return (
+            <View style={styles.loadingContainer}>
+                <Text style={styles.errorText}>{error}</Text>
+                <TouchableOpacity onPress={() => setAuthError(null)}>
+                    <Text>Retry</Text>
+                </TouchableOpacity>
+            </View>
+        );
+    }
 
     return (
-        <View style={styles.container}>
+        <NavigationContainer>
             <StatusBar barStyle="light-content" backgroundColor="#0d6efd" />
+            {user ? (
+                <MainTabs user={user} token={token} onLogout={logout} />
+            ) : (
+                <AuthStack />
+            )}
+        </NavigationContainer>
+    );
+};
 
-            {/* Screen content */}
-            <View style={styles.screenContainer}>
-                {renderScreen()}
-            </View>
-
-            {/* Bottom Navigation Bar */}
-            <View style={styles.bottomNav}>
-                <TouchableOpacity style={styles.navButton} onPress={() => handleNavigation('home')}>
-                    <Text style={[styles.navText, currentScreen === 'home' && styles.navTextActive]}>Home</Text>
-                </TouchableOpacity>
-
-                {user ? (
-                    <>
-                        <TouchableOpacity style={styles.navButton} onPress={() => handleNavigation('bookExchange')}>
-                            <Text style={[styles.navText, currentScreen === 'bookExchange' && styles.navTextActive]}>Books</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.navButton} onPress={() => handleNavigation('logout')}>
-                            <Text style={[styles.navText, currentScreen === 'logout' && styles.navTextActive]}>Logout</Text>
-                        </TouchableOpacity>
-                    </>
-                ) : (
-                    <>
-                        <TouchableOpacity style={styles.navButton} onPress={() => handleNavigation('login')}>
-                            <Text style={[styles.navText, currentScreen === 'login' && styles.navTextActive]}>Login</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.navButton} onPress={() => handleNavigation('register')}>
-                            <Text style={[styles.navText, currentScreen === 'register' && styles.navTextActive]}>Register</Text>
-                        </TouchableOpacity>
-                    </>
-                )}
-            </View>
-        </View>
+export default function App() {
+    return (
+        <AuthProvider>
+            <AppNavigator />
+        </AuthProvider>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100vh',
-        width: '100%',
-        backgroundColor: '#f0f8ff',
-    },
-    screenContainer: {
-        flex: 1,
-        width: '100%',
-    },
-    bottomNav: {
-        flexDirection: 'row',
-        backgroundColor: '#343a40',
-        paddingVertical: 12,
-        borderTopWidth: 1,
-        borderTopColor: '#495057',
-        width: '100%',
-    },
-    navButton: {
-        flex: 1,
-        alignItems: 'center',
-    },
-    navText: {
-        color: '#adb5bd',
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    navTextActive: {
-        color: '#ffffff',
-    },
-});

@@ -23,9 +23,8 @@ import {
 import { loginUser } from '../utils/api';
 
 // The LoginScreen component
-// navigation = function to switch screens (passed from App.js)
-// onLoginSuccess = function to call when login works (passed from App.js)
-const LoginScreen = ({ navigation, onLoginSuccess }) => {
+// navigation = navigation object from React Navigation
+const LoginScreen = ({ navigation }) => {
     // ============================================================
     // STATE VARIABLES
     // useState is a React hook that creates a variable that can change
@@ -67,9 +66,8 @@ const LoginScreen = ({ navigation, onLoginSuccess }) => {
 
         // Check if login was successful
         if (data.status === 'success') {
-            // Tell the parent component (App.js) that login was successful
-            // Pass the user data and token back to App.js
-            onLoginSuccess(data.data.user, data.token);
+            // Navigate to AuthSuccess with user and token
+            navigation.navigate('AuthSuccess', { user: data.data.user, token: data.token });
         } else {
             // If login failed, show the error message
             setError(data.errorMessage || 'Login failed. Please try again.');

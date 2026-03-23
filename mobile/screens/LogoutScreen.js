@@ -16,16 +16,19 @@ import {
 // Import the logout function from our API helper
 import { logoutUser } from '../utils/api';
 
-const LogoutScreen = ({ navigation, onLogout }) => {
+// Import useAuth
+import { useAuth } from '../AuthContext';
+
+const LogoutScreen = ({ navigation }) => {
+    const { logout } = useAuth();
 
     // Function that runs when user confirms logout
     const handleLogout = async () => {
         // Call the logoutUser function from api.js
         // This removes the JWT token and user data from phone storage
         await logoutUser();
-        // Tell App.js that user logged out
-        // App.js will clear the user state and show the home screen
-        onLogout();
+        // Tell context that user logged out
+        logout();
     };
 
     return (
@@ -45,7 +48,7 @@ const LogoutScreen = ({ navigation, onLogout }) => {
                 {/* Stay button (go back to home) */}
                 <TouchableOpacity
                     style={styles.stayButton}
-                    onPress={() => navigation('home')}
+                    onPress={() => navigation.navigate('Home')}
                 >
                     <Text style={styles.stayButtonText}>No, Stay Logged In</Text>
                 </TouchableOpacity>

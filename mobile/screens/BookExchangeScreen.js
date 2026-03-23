@@ -91,7 +91,7 @@ const BookExchangeScreen = ({ user, navigation }) => {
                         <Text style={styles.errorText}>{error}</Text>
                         <TouchableOpacity
                             style={styles.loginButton}
-                            onPress={() => navigation('login')}
+                            onPress={() => navigation.navigate('Login')}
                         >
                             <Text style={styles.loginButtonText}>Go to Login</Text>
                         </TouchableOpacity>
@@ -126,7 +126,7 @@ const BookExchangeScreen = ({ user, navigation }) => {
                         {user && (
                             <TouchableOpacity
                                 style={styles.addButton}
-                                onPress={() => navigation('addBook')}
+                                onPress={() => navigation.navigate('AddBook')}
                             >
                                 <Text style={styles.addButtonText}>Add a Book</Text>
                             </TouchableOpacity>
@@ -138,7 +138,7 @@ const BookExchangeScreen = ({ user, navigation }) => {
                 {user && books.length > 0 && (
                     <TouchableOpacity
                         style={styles.addButton}
-                        onPress={() => navigation('addBook')}
+                        onPress={() => navigation.navigate('AddBook')}
                     >
                         <Text style={styles.addButtonText}>Add a New Book</Text>
                     </TouchableOpacity>

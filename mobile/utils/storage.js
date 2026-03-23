@@ -13,7 +13,11 @@ const storage = {
     // Save a value
     setItem: async (key, value) => {
         try {
-            if (Platform.OS === 'web') {
+            if (key === 'jwt' && Platform.OS !== 'web') {
+                // Use SecureStore for JWT on mobile
+                const SecureStore = require('expo-secure-store');
+                await SecureStore.setItemAsync(key, value);
+            } else if (Platform.OS === 'web') {
                 // On web browser, use localStorage
                 localStorage.setItem(key, value);
             } else {
@@ -29,7 +33,11 @@ const storage = {
     // Get a saved value
     getItem: async (key) => {
         try {
-            if (Platform.OS === 'web') {
+            if (key === 'jwt' && Platform.OS !== 'web') {
+                // Use SecureStore for JWT on mobile
+                const SecureStore = require('expo-secure-store');
+                return await SecureStore.getItemAsync(key);
+            } else if (Platform.OS === 'web') {
                 return localStorage.getItem(key);
             } else {
                 const AsyncStorage = require('@react-native-async-storage/async-storage').default;
@@ -44,7 +52,11 @@ const storage = {
     // Remove a saved value
     removeItem: async (key) => {
         try {
-            if (Platform.OS === 'web') {
+            if (key === 'jwt' && Platform.OS !== 'web') {
+                // Use SecureStore for JWT on mobile
+                const SecureStore = require('expo-secure-store');
+                await SecureStore.deleteItemAsync(key);
+            } else if (Platform.OS === 'web') {
                 localStorage.removeItem(key);
             } else {
                 const AsyncStorage = require('@react-native-async-storage/async-storage').default;
