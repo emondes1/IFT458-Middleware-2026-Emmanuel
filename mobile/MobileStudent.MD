@@ -11,3 +11,5 @@
 - Switched to iPhone 14 profile
 - Tested app interaction
 - Verified connection with backend
+
+created notes for student in mobile student
